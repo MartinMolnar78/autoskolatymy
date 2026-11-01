@@ -1,0 +1,10 @@
+node_modules/
+dist/
+.astro/
+.env
+.env.*
+!.env.example
+.sites-local/
+qa/
+contact-sheet.jpg
+*.zip

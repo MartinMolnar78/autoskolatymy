@@ -1,0 +1,26 @@
+.button.hero-contact-button { margin-top: 22px; min-height: 46px; min-width: 130px; padding: 12px 19px; gap: 23px; font-size: 12px; color: var(--ink); background: transparent; border: 1px solid #b5bcad; }
+.button.hero-contact-button > svg { color: var(--red); }
+.button.hero-contact-button:hover { color: var(--red); border-color: var(--red); background: #fff; }
+.contact-email { display: flex; align-items: center; gap: 14px; padding-block: 20px; border-bottom: 1px solid #444940; }
+.contact-email > svg { color: var(--yellow); }
+.contact-email > svg:last-child { margin-left: auto; }
+.contact-email > span { min-width: 0; }
+.contact-email small { display: block; font-size: 9px; letter-spacing: 1.4px; color: #b6bcb0; margin-bottom: 5px; }
+.contact-email strong { display: block; font-size: 18px; font-weight: 600; letter-spacing: -.2px; overflow-wrap: anywhere; }
+.contact-email:hover strong { color: var(--yellow); }
+.header-facebook { display: inline-flex; align-items: center; justify-content: center; flex: 0 0 40px; width: 40px; height: 40px; border: 1px solid #c6ccbf; color: var(--ink); transition: color .2s, background .2s, border-color .2s, transform .2s; }
+.header-facebook:hover { color: white; background: #1877f2; border-color: #1877f2; transform: translateY(-2px); }
+.header-facebook svg { fill: currentColor; stroke: none; }
+.contact-visual { gap: 16px; }
+.contact-place { width: 100%; height: auto; aspect-ratio: 16 / 9; margin: 0; align-self: stretch; }
+.contact-place img { object-position: center; filter: none; }
+@media(max-width:1200px) { .header-actions { gap: 18px; } }
+@media(max-width:760px) { .header-actions { gap: 12px; } .header-facebook { flex-basis: 36px; width: 36px; height: 36px; } }
+@media(max-width:1050px) { .contact-email strong { font-size: 16px; } }
+@media(max-width:760px) {
+  .hero-controls { display: flex; align-items: center; gap: 12px; }
+  .hero-actions { flex: 0 0 auto; }
+  .hero-actions > .text-link { display: none; }
+  .button.hero-contact-button { margin-top: 0; min-height: 52px; min-width: 0; padding: 14px 16px; gap: 14px; white-space: nowrap; }
+}
+@media(max-width:380px) { .contact-email { gap: 10px; } .contact-email strong { font-size: 14px; } }

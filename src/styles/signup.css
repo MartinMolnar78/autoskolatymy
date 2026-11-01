@@ -1,0 +1,28 @@
+.education-note { display: flex; align-items: flex-start; gap: 16px; padding: 21px 24px; margin-top: 24px; background: #ffffff85; border-left: 3px solid var(--red); }
+.education-note > svg { color: var(--red); margin-top: 2px; }
+.education-note h3 { font-size: 14px; letter-spacing: -.3px; margin-bottom: 6px; }
+.education-note p { font-size: 12px; line-height: 1.9; color: #54574d; max-width: 1000px; }
+.tests-strip { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 27px; padding: 36px 38px; margin: 40px auto; background: var(--red); color: white; }
+.tests-strip .tests-icon { color: white; border: 1px solid #ffffff60; padding: 15px; }
+.tests-strip > div:nth-child(2) { min-width: 0; }
+.tests-strip h2 { font-size: 29px; line-height: 1.25; letter-spacing: -.9px; margin-bottom: 10px; }
+.tests-strip p { font-size: 12px; color: #fffffff0; line-height: 1.8; max-width: 570px; }
+.tests-strip .tests-label { font-size: 8px; font-weight: 800; letter-spacing: 1.3px; margin-bottom: 12px; }
+.tests-strip > .button { gap: 20px; font-size: 12px; padding-inline: 21px; white-space: nowrap; }
+.map-frame { flex: none; height: 410px; min-height: 410px; }
+.map-frame iframe { background: #e8e9df; }
+@media(max-width:1050px) { .tests-strip { grid-template-columns: auto 1fr; padding: 30px; gap: 20px; } .tests-strip > .button { grid-column: 2; justify-self: start; } }
+@media(max-width:760px) {
+  .education-note { gap: 12px; padding: 18px; margin-top: 20px; }
+  .education-note h3 { font-size: 13px; }
+  .education-note p { font-size: 11px; }
+  .education-note > svg { width: 22px; }
+  .tests-strip { padding: 26px 22px; margin-block: 28px; gap: 16px; }
+  .tests-strip .tests-icon { padding: 11px; }
+  .tests-strip .tests-icon svg { width: 28px; height: 28px; }
+  .tests-strip h2 { font-size: 23px; letter-spacing: -.6px; }
+  .tests-strip p { font-size: 11px; }
+  .tests-strip .tests-label { font-size: 7px; letter-spacing: 1px; }
+  .tests-strip > .button { grid-column: 1 / -1; justify-self: stretch; white-space: normal; }
+  .map-frame { height: 340px; min-height: 340px; }
+}

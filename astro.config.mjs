@@ -1,8 +1,9 @@
 import { defineConfig } from 'astro/config';
 
-// Set SITE_URL to the final custom domain before the production build.
+// GitHub Pages preview. Override both variables when moving to a custom domain.
 export default defineConfig({
-  site: process.env.SITE_URL || 'https://autoskola-tymy-navrh.martan78.chatgpt.site',
+  site: process.env.SITE_URL || 'https://martinmolnar78.github.io',
+  base: process.env.BASE_PATH || '/autoskolatymy',
   output: 'static',
   devToolbar: { enabled: false },
   trailingSlash: 'always',

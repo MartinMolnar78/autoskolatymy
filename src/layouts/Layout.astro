@@ -7,17 +7,18 @@ import '../styles/signup.css';
 import '../styles/contact.css';
 import '../styles/footer.css';
 import { content, businessEmail, type Lang } from '../data/content';
+import { withBase } from '../lib/paths';
 interface Props { lang: Lang; title?: string; description?: string; noindex?: boolean; }
 const { lang, title = content[lang].title, description = content[lang].description, noindex = false } = Astro.props;
 const base = Astro.site!;
-const canonical = new URL(Astro.url.pathname, base);
+const canonical = new URL(withBase(Astro.url.pathname), base);
 const indexable = process.env.INDEXABLE === 'true' && !noindex;
 const business = {
   '@context': 'https://schema.org', '@type': 'LocalBusiness',
-  '@id': new URL('/#business', base).href,
-  name: 'Autoškola Tymy', url: new URL(`/${lang}/`, base).href,
-  image: new URL('/images/hero.webp', base).href,
-  logo: new URL('/images/logo.webp', base).href,
+  '@id': new URL(withBase('/#business'), base).href,
+  name: 'Autoškola Tymy', url: new URL(withBase(`/${lang}/`), base).href,
+  image: new URL(withBase('/images/hero.webp'), base).href,
+  logo: new URL(withBase('/images/logo.webp'), base).href,
   telephone: ['+421905263409', '+421907364159'],
   email: businessEmail,
   address: { '@type': 'PostalAddress', streetAddress: 'Nábrežná 5779', addressLocality: 'Nové Zámky', addressCountry: 'SK' },
@@ -36,18 +37,18 @@ const business = {
     <meta name="robots" content={indexable ? 'index,follow' : 'noindex,follow'} />
     <link rel="canonical" href={canonical} />
     {!noindex && <>
-      <link rel="alternate" hreflang="sk" href={new URL('/sk/', base)} />
-      <link rel="alternate" hreflang="hu" href={new URL('/hu/', base)} />
-      <link rel="alternate" hreflang="x-default" href={new URL('/sk/', base)} />
+      <link rel="alternate" hreflang="sk" href={new URL(withBase('/sk/'), base)} />
+      <link rel="alternate" hreflang="hu" href={new URL(withBase('/hu/'), base)} />
+      <link rel="alternate" hreflang="x-default" href={new URL(withBase('/sk/'), base)} />
     </>}
-    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="icon" href={withBase('/favicon.ico')} sizes="any" />
     <meta property="og:type" content="website" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
     <meta property="og:site_name" content="Autoškola Tymy" />
     <meta property="og:locale" content={lang === 'sk' ? 'sk_SK' : 'hu_HU'} />
-    <meta property="og:image" content={new URL('/images/social.jpg', base)} />
+    <meta property="og:image" content={new URL(withBase('/images/social.jpg'), base)} />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta property="og:image:alt" content={content[lang].heroAlt} />

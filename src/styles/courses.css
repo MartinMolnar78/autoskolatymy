@@ -2,21 +2,24 @@
 #kurzy { position: relative; padding-block: 64px; scroll-margin-top: -64px; }
 #kurzy > .section-heading { margin-bottom: 26px; }
 #kurzy h2 { white-space: normal; font-size: 40px; letter-spacing: -1.6px; }
+.courses-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 .course-main { padding: 27px 30px; }
 .course-main .course-tag { font-size: 24px; font-weight: 800; letter-spacing: .5px; padding: 6px 12px; line-height: 1.25; }
 .course-main .course-top { margin-bottom: 16px; gap: 20px; }
 .course-main h3 { font-size: 26px; margin-bottom: 10px; }
 .course-main > p { max-width: none; font-size: 12px; line-height: 1.75; }
+.course-main .course-includes { margin-top: auto; padding-top: 18px; }
 .course-includes { padding: 0; margin: 18px 0 0; list-style: none; display: grid; gap: 9px; }
 .course-includes li { display: flex; align-items: flex-start; gap: 10px; font-size: 12px; line-height: 1.6; }
 .course-includes svg { margin-top: 1px; }
 .course-pricing { margin: 18px 0; padding-top: 16px; border-top: 1px solid #ffffff50; }
 .course-pricing .course-price { margin: 0; white-space: nowrap; font-size: 64px; }
 .course-pricing .course-price span { font-size: 38px; }
-.course-main .button { margin-top: auto; min-height: 50px; padding-block: 14px; }
+.course-main .button { margin-top: 0; min-height: 50px; padding-block: 14px; }
 .small-course-title > svg { flex: none; }
 @media(max-width:1050px) { .course-main .course-tag { font-size: 23px; } }
 @media(max-width:760px) {
+  .courses-grid { grid-template-columns: minmax(0, 1fr); }
   #kurzy { padding-block: 46px; scroll-margin-top: -46px; }
   #kurzy h2 { font-size: 33px; max-width: 440px; }
   #kurzy > .section-heading { margin-bottom: 24px; }

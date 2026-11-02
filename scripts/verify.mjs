@@ -20,7 +20,7 @@ for (const lang of ['sk', 'hu']) {
   const html = read(`${lang}/index.html`);
   assert.match(html, new RegExp(`<html lang="${lang}"`));
   assert.match(html, /<h1[^>]*>[^<]+/);
-  for (const text of ['990', '30', 'Peter Štrba', 'Tibor Štrba', 'Nábrežná 5779', '0905 263 409', '0907 364 159']) assert.ok(html.includes(text), `${lang}: ${text}`);
+  for (const text of ['1 090', '1 490', '40 €', 'Peter Štrba', 'Tibor Štrba', 'Nábrežná 5779/39A', '0905 263 409', '0907 364 159']) assert.ok(html.includes(text), `${lang}: ${text}`);
   for (const file of ['prihlaska.pdf', 'ziadost.pdf']) assert.ok(html.includes(`${basePath}documents/${file}`));
   for (const name of ['peter', 'tibor']) assert.ok(html.includes(`${basePath}images/${name}.webp`));
   assert.ok(html.includes('/images/hero-cars-v2.webp'), 'Both-car composition missing');

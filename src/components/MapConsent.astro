@@ -1,0 +1,125 @@
+---
+import { business, privacyLabels, privacyPaths } from '../data/business';
+import type { Lang } from '../data/content';
+import { withBase } from '../lib/paths';
+import Icon from './Icon.astro';
+
+const { lang, mapUrl, mapTitle } = Astro.props as { lang: Lang; mapUrl: string; mapTitle: string };
+const copy = {
+  sk: {
+    title: 'Mapa a poloha',
+    notice: 'Po povolení sa prehliadač spojí s Google Maps. Google dostane tvoju IP adresu a technické údaje a môže použiť cookies.',
+    allow: 'Povoliť Google mapu',
+    decline: 'Odmietnuť',
+    withdraw: 'Odvolať súhlas a skryť mapu',
+    disabled: 'Na zobrazenie mapy na stránke potrebuješ JavaScript. Trasu môžeš otvoriť odkazom pri adrese.',
+    declined: 'Mapa zostáva vypnutá.',
+    loaded: 'Google mapa je povolená pre túto návštevu stránky.',
+  },
+  hu: {
+    title: 'Térkép és helyszín',
+    notice: 'Engedélyezéskor a böngésződ csatlakozik a Google Térképhez. A Google megkapja az IP-címedet és technikai adatokat, valamint sütiket is használhat.',
+    allow: 'Google Térkép engedélyezése',
+    decline: 'Elutasítás',
+    withdraw: 'Hozzájárulás visszavonása és a térkép elrejtése',
+    disabled: 'A térkép beágyazásához JavaScript szükséges. Az útvonalat a cím melletti linken is megnyithatod.',
+    declined: 'A térkép kikapcsolva marad.',
+    loaded: 'A Google Térkép erre az oldallátogatásra engedélyezve van.',
+  },
+}[lang];
+---
+
+<div class="consent-map" data-consent-map data-map-url={mapUrl} data-map-title={mapTitle} data-declined={copy.declined} data-loaded={copy.loaded}>
+  <div class="map-frame">
+    <div class="consent-map-notice" data-map-notice>
+      <Icon name="pin" size={30} />
+      <h3>{copy.title}</h3>
+      <p class="consent-map-address">{business.premisesStreet}, Nové Zámky</p>
+      <p>{copy.notice}</p>
+      <a class="consent-map-privacy" href={withBase(privacyPaths[lang] + '#mapa')}>{privacyLabels[lang]}</a>
+      <div class="consent-map-actions" data-map-actions hidden>
+        <button type="button" data-map-allow aria-controls="google-map">{copy.allow}</button>
+        <button type="button" data-map-decline aria-controls="google-map">{copy.decline}</button>
+      </div>
+      <noscript><p>{copy.disabled}</p></noscript>
+    </div>
+    <div id="google-map" data-map-embed hidden></div>
+  </div>
+  <button type="button" class="map-withdraw" data-map-withdraw aria-controls="google-map" hidden>{copy.withdraw}</button>
+  <p class="map-status" role="status" data-map-status></p>
+</div>
+
+<script>
+  const map = document.querySelector<HTMLElement>('[data-consent-map]');
+  if (map) {
+    const actions = map.querySelector<HTMLElement>('[data-map-actions]')!;
+    const notice = map.querySelector<HTMLElement>('[data-map-notice]')!;
+    const embed = map.querySelector<HTMLElement>('[data-map-embed]')!;
+    const allow = map.querySelector<HTMLButtonElement>('[data-map-allow]')!;
+    const decline = map.querySelector<HTMLButtonElement>('[data-map-decline]')!;
+    const withdraw = map.querySelector<HTMLButtonElement>('[data-map-withdraw]')!;
+    const status = map.querySelector<HTMLElement>('[data-map-status]')!;
+
+    actions.hidden = false;
+    allow.addEventListener('click', () => {
+      // The Google URL is inactive until the visitor explicitly enables the map.
+      const frame = document.createElement('iframe');
+      frame.src = map.dataset.mapUrl!;
+      frame.title = map.dataset.mapTitle!;
+      frame.referrerPolicy = 'no-referrer';
+      frame.allowFullscreen = true;
+      embed.replaceChildren(frame);
+      embed.hidden = false;
+      notice.hidden = true;
+      withdraw.hidden = false;
+      status.textContent = map.dataset.loaded!;
+      withdraw.focus({ preventScroll: true });
+    });
+    decline.addEventListener('click', () => {
+      status.textContent = map.dataset.declined!;
+    });
+    withdraw.addEventListener('click', () => {
+      embed.replaceChildren();
+      embed.hidden = true;
+      notice.hidden = false;
+      withdraw.hidden = true;
+      status.textContent = map.dataset.declined!;
+      allow.focus({ preventScroll: true });
+    });
+  }
+</script>
+
+<style>
+  .consent-map-notice {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+    padding: 20px;
+    background: #eeefe8;
+    text-align: center;
+  }
+  .consent-map-notice > svg { color: var(--red); }
+  .consent-map-notice h3 { font-size: 23px; line-height: 1.25; }
+  .consent-map-notice p { max-width: 35ch; font-size: 12px; color: #4c554c; }
+  .consent-map-notice .consent-map-address { font-weight: 750; color: var(--ink); }
+  .consent-map-privacy { font-size: 12px; text-decoration: underline; text-underline-offset: 3px; }
+  .consent-map-actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-top: 4px; }
+  .consent-map-actions button, .map-withdraw {
+    min-height: 44px;
+    padding: 8px 13px;
+    border: 1px solid #7d8679;
+    background: transparent;
+    color: inherit;
+    font-size: 12px;
+    font-weight: 750;
+  }
+  .consent-map-actions button:hover { background: white; }
+  .map-withdraw { margin-top: 8px; color: var(--paper); }
+  .map-withdraw:hover { border-color: var(--paper); }
+  .map-status { font-size: 12px; color: var(--paper); }
+  .map-status:not(:empty) { margin-top: 6px; }
+</style>

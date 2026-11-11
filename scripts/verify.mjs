@@ -4,9 +4,10 @@ import { join } from 'node:path';
 
 // Check the built deliverable: real HTML, translations, downloads, SEO and assets.
 const read = file => readFileSync(join('dist', file), 'utf8');
-const directory = (process.env.BASE_PATH || '/autoskolatymy').replace(/^\/+|\/+$/g, '');
+const directory = (process.env.BASE_PATH || '/').replace(/^\/+|\/+$/g, '');
 const basePath = directory ? `/${directory}/` : '/';
-const site = process.env.SITE_URL || 'https://martinmolnar78.github.io';
+const site = process.env.SITE_URL || 'http://127.0.0.1:4321';
+const privacySlugs = { sk: 'ochrana-sukromia', hu: 'adatvedelem' };
 const checkLocalLinks = html => {
   for (const match of html.matchAll(/(?:src|href)="(\/[^"?#]*)(?:[?#][^"]*)?"/g)) {
     const path = decodeURIComponent(match[1]);
@@ -20,9 +21,9 @@ for (const lang of ['sk', 'hu']) {
   const html = read(`${lang}/index.html`);
   assert.match(html, new RegExp(`<html lang="${lang}"`));
   assert.match(html, /<h1[^>]*>[^<]+/);
-  for (const text of ['1 090', '1 490', '40 €', 'Peter Štrba', 'Tibor Štrba', 'Nábrežná 5779/39A', '0905 263 409', '0907 364 159']) assert.ok(html.includes(text), `${lang}: ${text}`);
+  for (const text of ['990', '1 490', '40 €', 'Peter Štrba', 'Beáta Mišíková', 'Tibor Štrba', 'Nábrežná 5779/39A', '0905 263 409', '0918 661 146', '0907 364 159']) assert.ok(html.includes(text), `${lang}: ${text}`);
   for (const file of ['prihlaska.pdf', 'ziadost.pdf']) assert.ok(html.includes(`${basePath}documents/${file}`));
-  for (const name of ['peter', 'tibor']) assert.ok(html.includes(`${basePath}images/${name}.webp`));
+  for (const name of ['peter', 'beata', 'tibor']) assert.ok(html.includes(`${basePath}images/${name}.webp`));
   assert.ok(html.includes('/images/hero-cars-v2.webp'), 'Both-car composition missing');
   assert.ok(html.includes('class="hero-wide"'), 'Full-width road composition missing');
   assert.ok(!html.includes('stats-section') && !html.includes('motion-ribbon'), 'Removed sections returned');
@@ -36,6 +37,13 @@ for (const lang of ['sk', 'hu']) {
   assert.match(html, /application\/ld\+json/);
   assert.ok(html.includes('https://www.minv.sk/?testy'));
   assert.ok(html.includes('https://www.facebook.com/autoskolatymy'));
+  const privacyPath = `${lang}/${privacySlugs[lang]}/`;
+  assert.ok(html.includes(`href="${basePath}${privacyPath}"`), 'Privacy page missing from the footer');
+  assert.ok(html.includes('data-consent-map') && !/<iframe\b/i.test(html), 'Google Maps must wait for explicit consent');
+  const policy = read(privacyPath + 'index.html');
+  assert.ok(policy.includes('43962955') && policy.includes('autoskolatymy@gmail.com'));
+  assert.ok(policy.includes(`rel="canonical" href="${new URL(basePath + privacyPath, site).href}"`));
+  checkLocalLinks(policy);
   const ids = new Set([...html.matchAll(/\bid="([^"]+)"/g)].map(match => match[1]));
   for (const match of html.matchAll(/href="#([^"]+)"/g)) assert.ok(ids.has(match[1]), `Missing anchor ${match[1]}`);
   checkLocalLinks(html);

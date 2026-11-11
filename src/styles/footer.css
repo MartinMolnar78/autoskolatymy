@@ -8,6 +8,11 @@
 .footer-contacts a { display: inline-flex; align-items: center; justify-content: center; gap: 9px; min-height: 36px; font-size: 12px; transition: color .2s; }
 .footer-contacts svg { color: var(--red); }
 .footer-contacts a:hover { color: var(--red); }
+.footer-legal { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px 52px; justify-content: center; max-width: 810px; padding: 22px 0 25px; border-top: 1px solid var(--line); color: var(--muted); font-size: 12px; line-height: 1.65; }
+.footer-legal h2 { font-size: 13px; line-height: 1.4; letter-spacing: 0; margin-bottom: 6px; color: var(--ink); }
+.footer-legal address { font-style: normal; }
+.footer-legal a { display: inline-flex; align-items: center; min-height: 44px; font-weight: 750; color: var(--ink); text-decoration: underline; text-underline-offset: 3px; }
+.footer-legal a:hover { color: var(--red); }
 .footer-bottom { align-items: center; justify-content: center; flex-wrap: wrap; gap: 8px 25px; padding: 16px 0 18px; text-align: center; }
 .footer-bottom .text-link { min-height: 32px; font-size: 10px; gap: 8px; }
 .footer-bottom .up-arrow { color: var(--red); }
@@ -22,4 +27,5 @@
 @media(max-width:560px) {
   .footer-main { grid-template-columns: minmax(0, 1fr); }
   .footer-contacts { align-items: center; text-align: center; }
+  .footer-legal { grid-template-columns: minmax(0, 1fr); text-align: center; }
 }

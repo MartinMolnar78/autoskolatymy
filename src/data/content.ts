@@ -1,15 +1,17 @@
 export type Lang = 'sk' | 'hu';
 export const businessEmail = 'autoskolatymy@gmail.com';
+export const standardCoursePrice = 990;
 
 export const instructors = [
   { name: 'Peter Štrba', phone: '0905 263 409', tel: '+421905263409', image: 'peter', width: 720, height: 819 },
+  { name: 'Beáta Mišíková', phone: '0918 661 146', tel: '+421918661146', image: 'beata', width: 720, height: 883, female: true },
   { name: 'Tibor Štrba', phone: '0907 364 159', tel: '+421907364159', image: 'tibor', width: 720, height: 883 },
 ];
 
 export const content = {
   sk: {
-    title: 'Autoškola Tymy Nové Zámky – vodičský preukaz skupiny B',
-    description: 'Rodinná autoškola v Nových Zámkoch od roku 1991. Kurz skupiny B za 1 090 €, rýchlokurz za 1 490 € a kondičné jazdy. Zisti, ako sa prihlásiť.',
+    title: 'Autoškola TYMY | Nové Zámky',
+    description: 'Nauč sa jazdiť s istotou v rodinnej autoškole v Nových Zámkoch. Pozri si ponuku kurzov, spoznaj inštruktorov a zisti, ako sa prihlásiť.',
     skip: 'Preskočiť na obsah', menu: 'Otvoriť menu', closeMenu: 'Zavrieť menu', navLabel: 'Hlavná navigácia',
     nav: ['O nás', 'Kurzy a cenník', 'Inštruktori', 'Kontakt'],
     apply: 'Chcem sa prihlásiť', call: 'Zavolajte nám',
@@ -19,9 +21,9 @@ export const content = {
     heroCta: 'Poďme na to', secondaryCta: 'Pozrieť kurzy a ceny',
     premisesAlt: 'Vstup do Autoškoly Tymy na Nábrežnej v Nových Zámkoch',
     heroCarsAlt: 'Grafická kompozícia zeleného a bieleho výcvikového Hyundai i20 Autoškoly Tymy',
-    heroCarLabel: 'TVOJI PARŤÁCI NA CESTE', heroStageTitle: 'Vodičský preukaz skupiny B', heroStageDetail: '1 090 € · možnosť splátok',
+    heroCarLabel: 'TVOJI PARŤÁCI NA CESTE', heroStageTitle: 'Vodičský preukaz skupiny B', heroStageDetail: `${standardCoursePrice} € · možnosť splátok`,
     pauseMotion: 'Pozastaviť animácie', resumeMotion: 'Spustiť animácie',
-    heroAlt: 'Zelený Hyundai i20 pred vstupom do Autoškoly Tymy v Nových Zámkoch',
+    socialAlt: 'Dve výcvikové autá na grafickej ceste. Za volantom s pokojom.',
     trust: [
       { icon: 'heart', title: 'Rodinný prístup', text: 'Autoškola s tradíciou od roku 1991' },
       { icon: 'car', title: 'Moderný vozový park', text: 'Pohodlné autá na tvoje prvé kilometre' },
@@ -38,7 +40,7 @@ export const content = {
     aboutText: 'V Nových Zámkoch pomáhame budúcim vodičom od roku 1991. Vieme, že prvé jazdy môžu byť stresujúce. Preto staviame na trpezlivosti, skúsenostiach a pokojnej atmosfére.',
     aboutText2: 'Teóriu preberieme v našej učebni, prvé manévre si vyskúšaš na autocvičisku a do premávky vyrazíme spolu. Krok za krokom, podľa tvojho tempa.',
     classroomCaption: 'Výučba prebieha v moderných priestoroch.', classroomAlt: 'Svetlá učebňa Autoškoly Tymy so žltými stolmi a dopravnými pomôckami',
-    teamLabel: '03 / TVOJI INŠTRUKTORI', teamTitle: 'Skúsenosti, ktoré\nťa podržia.', instructor: 'Inštruktor autoškoly', portraitAlt: 'inštruktor Autoškoly Tymy v tričku s logom',
+    teamLabel: '03 / TVOJI INŠTRUKTORI', teamTitle: 'Skúsenosti, ktoré\nťa podržia.', instructor: 'Inštruktor autoškoly', instructorFemale: 'Inštruktorka autoškoly',
     fleetLabel: '04 / AUTÁ A CVIČISKO', fleetTitle: 'Dobrý pocit\nuž od prvej jazdy.', fleetIntro: 'Nové Hyundai i20 a autocvičisko, kde môžeš v pokoji začať. Zoznám sa s prostredím, v ktorom budeš jazdiť.',
     fleetCar: 'Tvoje prvé kilometre v Hyundai i20', fleetCarAlt: 'Biely výcvikový Hyundai i20 Autoškoly Tymy na autocvičisku', fleetGround: 'Priestor na prvé manévre', fleetGroundAlt: 'Hyundai i20 a dopravné kužele na autocvičisku Autoškoly Tymy',
     signupLabel: '05 / AKO ZAČAŤ', signupTitle: 'K vodičáku\nťa delia tri kroky.', signupIntro: 'Začni papiermi. Ostatné si už prejdeme spolu.',
@@ -56,8 +58,8 @@ export const content = {
     notFound: 'Táto cesta nikam nevedie.', notFoundText: 'Stránku sa nepodarilo nájsť. Vráť sa na začiatok a vyber si správny smer.', home: 'Späť na úvod',
   },
   hu: {
-    title: 'Tymy Autósiskola Érsekújvár – B kategóriás jogosítvány',
-    description: 'Családi autósiskola Érsekújváron 1991 óta. B kategóriás tanfolyam 1 090 €-ért, intenzív tanfolyam 1 490 €-ért és gyakorló vezetések. Tudj meg többet a jelentkezésről.',
+    title: 'TYMY Autósiskola | Érsekújvár',
+    description: 'Tanulj meg magabiztosan vezetni egy érsekújvári családi autósiskolában. Ismerd meg a tanfolyamainkat, az oktatóinkat és a jelentkezés menetét.',
     skip: 'Ugrás a tartalomra', menu: 'Menü megnyitása', closeMenu: 'Menü bezárása', navLabel: 'Fő navigáció',
     nav: ['Rólunk', 'Tanfolyamok és árak', 'Oktatók', 'Kapcsolat'],
     apply: 'Jelentkezem', call: 'Hívj minket',
@@ -67,9 +69,9 @@ export const content = {
     heroCta: 'Vágjunk bele', secondaryCta: 'Tanfolyamok és árak',
     premisesAlt: 'A Tymy autósiskola bejárata Érsekújváron, a Nábrežná utcában',
     heroCarsAlt: 'A Tymy Autósiskola zöld és fehér Hyundai i20 oktatóautójának grafikai kompozíciója',
-    heroCarLabel: 'TÁRSAID AZ UTAKON', heroStageTitle: 'B kategóriás jogosítvány', heroStageDetail: '1 090 € · részletfizetés',
+    heroCarLabel: 'TÁRSAID AZ UTAKON', heroStageTitle: 'B kategóriás jogosítvány', heroStageDetail: `${standardCoursePrice} € · részletfizetés`,
     pauseMotion: 'Animációk szüneteltetése', resumeMotion: 'Animációk folytatása',
-    heroAlt: 'Zöld Hyundai i20 az érsekújvári Tymy Autósiskola bejárata előtt',
+    socialAlt: 'Két oktatóautó egy rajzolt úton. Nyugalom a volán mögött.',
     trust: [
       { icon: 'heart', title: 'Családias légkör', text: 'Autósiskola hagyományokkal, 1991 óta' },
       { icon: 'car', title: 'Modern járműpark', text: 'Kényelmes autók az első kilométerekhez' },
@@ -86,7 +88,7 @@ export const content = {
     aboutText: '1991 óta segítjük a leendő sofőröket Érsekújváron. Tudjuk, hogy az első vezetések izgalommal járnak. Ezért a türelemre, a tapasztalatra és a nyugodt légkörre építünk.',
     aboutText2: 'Az elméletet a tantermünkben tanulod, az első manővereket a gyakorlópályán próbálod ki, a forgalomba pedig együtt indulunk. Lépésről lépésre, a saját tempódban.',
     classroomCaption: 'Az oktatás modern környezetben zajlik.', classroomAlt: 'A Tymy Autósiskola világos tanterme sárga asztalokkal és szemléltetőeszközökkel',
-    teamLabel: '03 / AZ OKTATÓID', teamTitle: 'Tapasztalat,\namelyre számíthatsz.', instructor: 'Autósiskolai oktató', portraitAlt: 'a Tymy Autósiskola oktatója, logós pólóban',
+    teamLabel: '03 / AZ OKTATÓID', teamTitle: 'Tapasztalat,\namelyre számíthatsz.', instructor: 'Autósiskolai oktató', instructorFemale: 'Autósiskolai oktató',
     fleetLabel: '04 / AUTÓK ÉS GYAKORLÓPÁLYA', fleetTitle: 'Jó érzés már\naz első vezetéstől.', fleetIntro: 'Új Hyundai i20-asok és gyakorlópálya a nyugodt kezdéshez. Ismerd meg a környezetet, ahol vezetni fogsz.',
     fleetCar: 'Az első kilométereid egy Hyundai i20-ban', fleetCarAlt: 'A Tymy Autósiskola fehér Hyundai i20 oktatóautója a gyakorlópályán', fleetGround: 'Hely az első manőverekhez', fleetGroundAlt: 'Hyundai i20 és bóják a Tymy Autósiskola gyakorlópályáján',
     signupLabel: '05 / ÍGY KEZDHETED EL', signupTitle: 'Három lépés\na jogosítvány felé.', signupIntro: 'Kezdd a dokumentumokkal. A többit együtt átbeszéljük.',

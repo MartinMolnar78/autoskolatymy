@@ -1,9 +1,9 @@
 import { defineConfig } from 'astro/config';
 
-// GitHub Pages preview. Override both variables when moving to a custom domain.
+// Set SITE_URL to the public Cloudflare URL when deploying.
 export default defineConfig({
-  site: process.env.SITE_URL || 'https://martinmolnar78.github.io',
-  base: process.env.BASE_PATH || '/autoskolatymy',
+  site: process.env.SITE_URL || 'http://127.0.0.1:4321',
+  base: process.env.BASE_PATH || '/',
   output: 'static',
   devToolbar: { enabled: false },
   trailingSlash: 'always',

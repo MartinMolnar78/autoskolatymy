@@ -1,13 +1,15 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import Icon from '../../components/Icon.astro';
-import { content, instructors, businessEmail, type Lang } from '../../data/content';
+import MapConsent from '../../components/MapConsent.astro';
+import { content, instructors, businessEmail, standardCoursePrice, type Lang } from '../../data/content';
+import { business, privacyLabels, privacyPaths } from '../../data/business';
 import { withBase } from '../../lib/paths';
 export function getStaticPaths() { return ['sk', 'hu'].map(lang => ({ params: { lang } })); }
 const lang = Astro.params.lang as Lang;
 const t = content[lang];
 const navTargets = ['o-nas', 'kurzy', 'instruktori', 'kontakt'];
-const mapQuery = encodeURIComponent('Autoškola Tymy, Nábrežná 5779/39A, Nové Zámky, Slovakia');
+const mapQuery = encodeURIComponent(`Autoškola Tymy, ${business.premisesStreet}, Nové Zámky, Slovakia`);
 const mapUrl = `https://www.google.com/maps?q=${mapQuery}&output=embed&hl=${lang}`;
 const directionsUrl = `https://www.google.com/maps/dir/?api=1&destination=${mapQuery}`;
 ---
@@ -73,7 +75,7 @@ const directionsUrl = `https://www.google.com/maps/dir/?api=1&destination=${mapQ
           </svg>
           <img class="hero-cars" src={withBase('/images/hero-cars-v2.webp')} alt={t.heroCarsAlt} width="1536" height="1024" fetchpriority="high" />
         </div>
-        <a class="stage-caption" href="#prihlasenie"><span class="stage-category" aria-hidden="true">B</span><span>{t.heroStageTitle}<small>{t.heroStageDetail}</small></span><Icon name="diagonal" size={22} /></a>
+        <a class="stage-caption" href="#prihlasenie"><span class="stage-category" aria-hidden="true">B</span><span>{t.heroStageTitle}<small><span data-nosnippet>{t.heroStageDetail}</span></small></span><Icon name="diagonal" size={22} /></a>
       </div>
       </div>
     </section>
@@ -92,7 +94,7 @@ const directionsUrl = `https://www.google.com/maps/dir/?api=1&destination=${mapQ
           <h3>{t.mainCourse}</h3>
           <p>{t.mainCourseDesc}</p>
           <ul class="course-includes">{[...t.courseIncludes, t.instalments].map(item => <li><Icon name="check" size={18} /><span>{item}</span></li>)}</ul>
-          <div class="course-pricing"><div class="course-price">1 090 <span>€</span></div></div>
+          <div class="course-pricing" data-nosnippet><div class="course-price">{standardCoursePrice} <span>€</span></div></div>
           <a class="button button-white" href="#prihlasenie">{t.mainCourseCta}<Icon name="arrow" size={20} /></a>
         </article>
         <article class="course-main reveal">
@@ -100,13 +102,13 @@ const directionsUrl = `https://www.google.com/maps/dir/?api=1&destination=${mapQ
           <h3>{t.fastCourse}</h3>
           <p>{t.fastCourseDesc}</p>
           <ul class="course-includes">{[...t.courseIncludes, t.instalments].map(item => <li><Icon name="check" size={18} /><span>{item}</span></li>)}</ul>
-          <div class="course-pricing"><div class="course-price">1 490 <span>€</span></div></div>
+          <div class="course-pricing" data-nosnippet><div class="course-price">1 490 <span>€</span></div></div>
           <a class="button button-white" href="#prihlasenie">{t.mainCourseCta}<Icon name="arrow" size={20} /></a>
         </article>
         <article class="course-small reveal">
           <div class="small-course-title"><h3>{t.refresher}</h3><Icon name="practice" size={32} /></div>
           <p>{t.refresherDesc}</p>
-          <div class="small-course-bottom"><div class="small-price">40 € <span>{t.perHour}</span></div></div>
+          <div class="small-course-bottom"><div class="small-price" data-nosnippet>40 € <span>{t.perHour}</span></div></div>
         </article>
         <article class="course-small reveal">
           <div class="small-course-title"><h3>{t.retraining}</h3><Icon name="retraining" size={32} /></div>
@@ -127,11 +129,16 @@ const directionsUrl = `https://www.google.com/maps/dir/?api=1&destination=${mapQ
       <div class="section-heading reveal"><div><p class="eyebrow">{t.teamLabel}</p><h2 id="team-title">{t.teamTitle}</h2></div></div>
       <div class="team-grid">
         {instructors.map((person, index) => <article class="instructor reveal">
-          <div class="instructor-copy"><span class="person-index">0{index + 1}/{person.name.split(' ')[0]}</span><div><p class="instructor-role">{t.instructor}</p><h3>{person.name}</h3><a href={`tel:${person.tel}`}><Icon name="phone" size={18} />{person.phone}</a></div></div>
+          <span class="person-index" aria-hidden="true">0{index + 1}/{person.name.split(' ')[0]}</span>
           <span class="instructor-orbit" aria-hidden="true"></span>
           <div class="portrait-stack">
             <img class="portrait-outline" src={withBase(`/images/${person.image}.webp`)} alt="" aria-hidden="true" width={person.width} height={person.height} loading="lazy" />
-            <img class="portrait-photo" src={withBase(`/images/${person.image}.webp`)} alt={`${person.name}, ${t.portraitAlt}`} width={person.width} height={person.height} loading="lazy" />
+            <img class="portrait-photo" src={withBase(`/images/${person.image}.webp`)} alt="" width={person.width} height={person.height} loading="lazy" />
+          </div>
+          <div class="instructor-copy">
+            <p class="instructor-role">{person.female ? t.instructorFemale : t.instructor}</p>
+            <h3>{person.name}</h3>
+            <a href={`tel:${person.tel}`}><Icon name="phone" size={18} />{person.phone}</a>
           </div>
         </article>)}
       </div>
@@ -164,12 +171,13 @@ const directionsUrl = `https://www.google.com/maps/dir/?api=1&destination=${mapQ
         <div class="contact-copy reveal"><p class="eyebrow">{t.contactLabel}</p><h2 id="contact-title">{t.contactTitle}</h2><p class="contact-intro">{t.contactIntro}</p>
           <div class="contact-phones">{instructors.map(person => <a href={`tel:${person.tel}`}><span>{person.name}</span><strong>{person.phone}</strong><Icon name="diagonal" size={22} /></a>)}</div>
           <a class="contact-email" href={`mailto:${businessEmail}`}><Icon name="mail" size={21} /><span><small>E-MAIL</small><strong>{businessEmail}</strong></span><Icon name="diagonal" size={19} /></a>
-          <div class="contact-address"><div><p class="address-label">{t.addressLabel}</p><address>Nábrežná 5779/39A<br />Nové Zámky</address></div><a class="text-link" href={directionsUrl} target="_blank" rel="noopener noreferrer">{t.directions}<Icon name="diagonal" size={18} /></a></div>
+          <div class="contact-address"><div><p class="address-label">{t.addressLabel}</p><address>{business.premisesStreet}<br />Nové Zámky</address></div><a class="text-link" href={directionsUrl} target="_blank" rel="noopener noreferrer">{t.directions}<Icon name="diagonal" size={18} /></a></div>
           <a class="facebook-link" href="https://www.facebook.com/autoskolatymy" target="_blank" rel="noopener noreferrer"><Icon name="facebook" size={18} />{t.facebook}<Icon name="diagonal" size={16} /></a>
         </div>
-        <div class="contact-visual reveal"><div class="map-frame">
-          <iframe src={mapUrl} title={t.mapTitle} width="600" height="400" loading="lazy" allowfullscreen referrerpolicy="no-referrer-when-downgrade"></iframe>
-        </div><figure class="contact-place"><img src={withBase('/images/premises-v2.webp')} alt={t.premisesAlt} width="1536" height="1024" loading="lazy" /></figure></div>
+        <div class="contact-visual reveal">
+          <MapConsent lang={lang} mapUrl={mapUrl} mapTitle={t.mapTitle} />
+          <figure class="contact-place"><img src={withBase('/images/premises-v2.webp')} alt={t.premisesAlt} width="1536" height="1024" loading="lazy" /></figure>
+        </div>
       </div>
     </section>
   </main>
@@ -182,6 +190,21 @@ const directionsUrl = `https://www.google.com/maps/dir/?api=1&destination=${mapQ
       <div class="footer-contacts">
         <a href={`mailto:${businessEmail}`}><Icon name="mail" size={16} />{businessEmail}</a>
         <a href="https://www.facebook.com/autoskolatymy" target="_blank" rel="noopener noreferrer"><Icon name="facebook" size={16} />{t.facebook}<Icon name="diagonal" size={13} /></a>
+      </div>
+    </div>
+    <div class="container footer-legal" id="prevadzkovatel">
+      <div>
+        <h2>{lang === 'sk' ? 'Prevádzkovateľ' : 'Üzemeltető'}</h2>
+        <p><strong>{business.legalName}</strong></p>
+        <address>{business.registeredStreet}, {business.registeredTown}</address>
+        <p>{lang === 'sk' ? 'Živnostenský register Okresného úradu Nové Zámky' : 'Az Érsekújvári Járási Hivatal vállalkozói nyilvántartása'}, {business.registrationNumber}</p>
+        <p>IČO {business.ico} · DIČ {business.dic} · IČ DPH {business.vatId}</p>
+      </div>
+      <div>
+        <h2>{lang === 'sk' ? 'Odborný dozor nad autoškolou' : 'Az autósiskola szakmai felügyelete'}</h2>
+        <p>Okresný úrad Nitra, odbor cestnej dopravy a pozemných komunikácií</p>
+        <p>Štefánikova trieda 69, 949 01 Nitra</p>
+        <a href={withBase(privacyPaths[lang])}>{privacyLabels[lang]}</a>
       </div>
     </div>
     <div class="container footer-bottom">

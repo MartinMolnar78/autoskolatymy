@@ -15,6 +15,13 @@ const lang = Astro.params.lang as Lang;
 const other = lang === 'sk' ? 'hu' : 'sk';
 const t = privacy[lang];
 const home = withBase(`/${lang}/`);
+const githubPreview = Astro.site?.hostname.endsWith('.github.io');
+const hostingPolicyUrl = githubPreview
+  ? 'https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement'
+  : 'https://www.cloudflare.com/privacypolicy/';
+const hostingTransfersUrl = githubPreview
+  ? hostingPolicyUrl + '#international-transfers'
+  : 'https://www.cloudflare.com/cloudflare-customer-dpa/';
 ---
 
 <Layout lang={lang} title={`${privacyLabels[lang]} | Autoškola Tymy`} description={t.scope} alternatePaths={privacyPaths}>
@@ -47,9 +54,9 @@ const home = withBase(`/${lang}/`);
     </section>
     <section>
       <h2>{t.hosting}</h2>
-      <p>{t.cloudflare}</p>
+      <p>{githubPreview ? t.github : t.cloudflare}</p>
       <p>{t.hostingBasis}</p>
-      <a href="https://www.cloudflare.com/privacypolicy/">{t.hostingPolicy}</a>
+      <a href={hostingPolicyUrl}>{t.hostingPolicy}</a>
     </section>
     <section id="mapa">
       <h2>{t.map}</h2>
@@ -67,7 +74,7 @@ const home = withBase(`/${lang}/`);
       <p>{t.recipientsUse}</p>
       <ul class="policy-links">
         <li><a href={`https://policies.google.com/privacy/frameworks?hl=${lang}`}>{t.googleTransfers}</a></li>
-        <li><a href="https://www.cloudflare.com/cloudflare-customer-dpa/">{t.hostTransfers}</a></li>
+        <li><a href={hostingTransfersUrl}>{t.hostTransfers}</a></li>
       </ul>
     </section>
     <section>
